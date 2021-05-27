@@ -1,9 +1,10 @@
 export ZSH_DISABLE_COMPFIX=true
-export ZSH="/Users/jmignac/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
 plugins=(git)
+
 
 source $ZSH/oh-my-zsh.sh
 
