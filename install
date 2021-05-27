@@ -39,6 +39,16 @@ install_homebrew_packages () {
   done
 }
 
+install_apt_packages () {
+  step "Installing missing packages: $apt_packages"
+  for package in $apt_packages; do
+    if ! is_apt_installed $package; then
+      echo "Installing $package"
+      sudo apt-get install -y $package
+    fi
+  done
+}
+
 install_oh_my_zsh () {
   if ! [[ -d ~/.oh-my-zsh ]] ; then
     step "Installing oh-my-zsh"
