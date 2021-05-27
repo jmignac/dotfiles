@@ -1,0 +1,129 @@
+#!/bin/bash
+#
+# Install important packages AND
+# Symlink dotfiles in home with dotfiles in this folder.
+# Backs up home files in the dotfiles/backup folder.
+#
+# installs files passed or .* if this script is run with no arguments.
+
+# ignore installing those files, they are not to be symlinked
+GLOBIGNORE='.:..:.DS_Store:.git:.gitignore'
+homebrew_packages="$(cat packages_brew.csv | xargs)"
+apt_packages="$(cat packages_apt.csv | xargs)"
+os="$(uname -s | tr -d '\n')"
+
+is_installed () {
+  # This works with scripts and programs. For more info, check
+  # http://goo.gl/B9683D
+  type $1 &> /dev/null 2>&1
+}
+
+is_brew_installed () {
+  brew --prefix "$1" &> /dev/null
+}
+
+install_homebrew () {
+  if ! is_installed brew; then
+    step "Installing Homebrew"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
+
+install_homebrew_packages () {
+  step "Installing missing packages: $homebrew_packages"
+  for package in $homebrew_packages; do
+    if ! is_brew_installed $package; then
+      echo "Installing $package"
+      brew install $package
+    fi
+  done
+}
+
+install_oh_my_zsh () {
+  if ! [[ -d ~/.oh-my-zsh ]] ; then
+    step "Installing oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    # make zsh default shell
+    chsh -s `which zsh`
+  fi
+}
+
+create_backup_folder () {
+  mkdir -p "./backup"
+}
+
+backup_file () {
+  local file="$1"
+  local current_dir="$2"
+
+  if [[ -f ${file} ]] || [[ -d ${file} ]]; then
+    echo "backing up ${file} to ${current_dir}/backup..."
+    mv "${file}" "${current_dir}/backup"
+    return "$?"
+  fi
+}
+
+install_file () {
+  local file="$1"
+  local current_dir="$2"
+  local dot_file_path="${current_dir}/${file}"
+
+  # We don't want to install on top of symlinks
+  if [[ -L ${file} ]]; then
+    echo "${file} is already installed."
+  elif [[ -e ${dot_file_path} ]]; then
+#    backup_file "${file}" "${current_dir}"
+
+    echo "installing ${file}"
+    ln -s "${dot_file_path}" "${HOME}/${file}"
+  fi
+}
+
+step() {
+  cat <<-EOF 1>&2
+	==============================
+	$1
+	------------------------------
+	EOF
+}
+
+main () {
+  local dot_files="${@:-.*}"
+  local current_dir
+  current_dir="$(pwd)"
+
+  install_oh_my_zsh
+
+  if [[ $# -eq 0 ]]; then
+    if [[ $os = "Darwin" ]]; then
+      install_homebrew
+      install_homebrew_packages
+    fi
+
+    if [[ $SPIN ]]; then
+      install_apt_packages
+      mv $HOME/.config/* "$current_dir/config"
+      rmdir $HOME/.config
+      rm $HOME/.zshrc
+      rm $HOME/.gitconfig
+    fi
+  fi
+
+  step "Symlinking dotfile(s): $dot_files"
+  for dot_file in bin $dot_files; do
+    cd "$HOME"
+    install_file "$dot_file" "$current_dir"
+    cd "$current_dir"
+  done
+
+  if [[ $SPIN ]]; then
+    step "spin git config"
+    git config --global user.email "jesse.mignac@shopify.com"
+    git config --global user.name "Jesse Mignac"
+  fi
+}
+
+main "$@"
+
+unset GLOBIGNORE
