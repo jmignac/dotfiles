@@ -22,6 +22,12 @@ is_brew_installed () {
   brew --prefix "$1" &> /dev/null
 }
 
+installed=""
+is_apt_installed() {
+  [[ -z $installed ]] && installed="$(apt list --installed)"
+  echo $installed | grep -q "$1"
+}
+
 install_homebrew () {
   if ! is_installed brew; then
     step "Installing Homebrew"
