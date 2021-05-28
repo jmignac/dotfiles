@@ -1,12 +1,32 @@
 export ZSH_DISABLE_COMPFIX=true
 export ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 plugins=(git)
 
-
 source $ZSH/oh-my-zsh.sh
+
+# Prompt customization
+PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+# Tell spin prompt apart from local prompt
+if [[ $SPIN ]]; then
+  PROMPT+="%{$FG[113][spin]%}"
+fi
+# Add git information to prompt
+PROMPT+=' %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+# Add number of bg to prompt
+_jobscount() {
+  local stopped=$(jobs -sp | wc -l | xargs)
+  local running=$(jobs -rp | wc -l | xargs)
+  ((stopped)) && echo -n "[%{${FG[113]}%}${stopped}%{$reset_color%}] "
+}
+PROMPT+='$(_jobscount)'
+PROMPT+='\$ '
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 # User configuration
 
