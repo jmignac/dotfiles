@@ -1,24 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
-call plug#begin()
-
-Plug 'rakr/vim-one'
-Plug 'vim-airline/vim-airline'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'vimwiki/vimwiki'
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP client for sorbet
-Plug 'Shopify/vim-sorbet', { 'branch': 'main' }
-Plug 'tpope/vim-endwise', { 'for': ['ruby'] }
-
-call plug#end()            " required
 filetype plugin indent on    " required
-
 syntax on
 
-map <F7> mzgg=G`z
+source $HOME/.vim/config/plugins.vim
 
 set tabstop=2
 set shiftwidth=2
@@ -28,12 +13,19 @@ set nowrap
 set noswapfile
 set t_Co=256
 set background=dark
-colorscheme one
-autocmd BufRead,BufNewFile *.json setfiletype javascript
 set colorcolumn=90 " 90 character mark
-autocmd BufWritePre * :%s/\s\+$//e " Whitespace
 set list
 set listchars=tab:>-
+
+try
+  colorscheme one
+catch
+  " deal with it
+endtry
+
+
+autocmd BufRead,BufNewFile *.json setfiletype javascript
+autocmd BufWritePre * :%s/\s\+$//e " Whitespace
 
 " Hydrid line numbers on the current tab
 " Absolute line numbers on other tabs

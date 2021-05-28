@@ -89,10 +89,21 @@ install_file () {
   if [[ -L ${file} ]]; then
     echo "${file} is already installed."
   elif [[ -e ${dot_file_path} ]]; then
-#    backup_file "${file}" "${current_dir}"
-
-    echo "installing ${file}"
+    echo "installing ${file} at ${HOME}/${file}"
     ln -s "${dot_file_path}" "${HOME}/${file}"
+  fi
+}
+
+#install_vim_plug() {
+#  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+#    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#}
+
+install_vim_dependencies() {
+  if ! ls -A "$HOME/.vim/plugged" &> /dev/null; then
+    step "Installing vim dependencies"
+    vim -c 'PlugInstall | qa!'
+    vim -c 'CocInstall -sync coc-json coc-tsserver coc-solargraph coc-snippets | qa!'
   fi
 }
 
@@ -126,6 +137,14 @@ main () {
     fi
   fi
 
+  step "Symlink vim config"
+  if [[ -L "${HOME}/.config/vim" ]]; then
+    echo "vim config is already installed."
+  elif [[ -e "${current_dir}/config/vim" ]]; then
+    echo "installing vim config at ${HOME}/.config/vim"
+    ln -sF "${current_dir}/config/vim" "${HOME}/.config/vim"
+  fi
+
   step "Symlinking dotfile(s): $dot_files"
   for dot_file in bin $dot_files; do
     cd "$HOME"
@@ -134,10 +153,12 @@ main () {
   done
 
   if [[ $SPIN ]]; then
-    step "spin git config"
+    step "Configuring spin git"
     git config --global user.email "jesse.mignac@shopify.com"
     git config --global user.name "Jesse Mignac"
   fi
+
+  install_vim_dependencies
 }
 
 main "$@"
