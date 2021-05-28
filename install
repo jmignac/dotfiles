@@ -137,14 +137,6 @@ main () {
     fi
   fi
 
-  step "Symlink vim config"
-  if [[ -L "${HOME}/.config/vim" ]]; then
-    echo "vim config is already installed."
-  elif [[ -e "${current_dir}/config/vim" ]]; then
-    echo "installing vim config at ${HOME}/.config/vim"
-    ln -sF "${current_dir}/config/vim" "${HOME}/.config/vim"
-  fi
-
   step "Symlinking dotfile(s): $dot_files"
   for dot_file in bin $dot_files; do
     cd "$HOME"
