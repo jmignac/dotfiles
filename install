@@ -19,7 +19,8 @@ is_installed () {
 }
 
 is_brew_installed () {
-  brew --prefix "$1" &> /dev/null
+  #brew --prefix "$1" &> /dev/null
+  which "$1"
 }
 
 installed=""
@@ -36,11 +37,13 @@ install_homebrew () {
 }
 
 install_homebrew_packages () {
-  step "Installing missing packages: $homebrew_packages"
+  step "Installing packages: $homebrew_packages"
   for package in $homebrew_packages; do
     if ! is_brew_installed $package; then
       echo "Installing $package"
       brew install $package
+    else
+      echo "$package already installed"
     fi
   done
 }
