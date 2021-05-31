@@ -40,3 +40,7 @@ alias grm="git rebase master"
 if [ -e /Users/jmignac/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jmignac/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Load os specific config
+[ "$OS" = "Linux" ] && source ~/dotfiles/os-linux.sh
+[ "$OS" = "Darwin" ] && source ~/.dotfiles/os-darwin.sh
