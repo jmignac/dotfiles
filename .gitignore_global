@@ -1,2 +1,3 @@
 tags
 .envrc
+config/secrets.development.json
