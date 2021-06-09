@@ -31,9 +31,10 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 # User configuration
 
 alias v="vim"
-alias grom="gup && git reset --hard origin/master"
+alias grom="git reset --hard origin/master"
 alias grim="git rebase -i master"
 alias grm="git rebase master"
+alias rdb="bin/rails db:migrate db:test:prepare"
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
