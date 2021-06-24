@@ -17,7 +17,8 @@
 [user]
 	name = Jesse Mignac
 	email = jesse.mignac@shopify.com
-[credential]
-	helper = store --file /opt/dev/var/private/git_credential_store
 [init]
 	defaultBranch = main
+[credential]
+	helper = 
+	helper = store --file /opt/dev/var/private/git_credential_store

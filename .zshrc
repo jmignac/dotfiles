@@ -35,6 +35,7 @@ alias grom="git reset --hard origin/master"
 alias grim="git rebase -i master"
 alias grm="git rebase master"
 alias rdb="bin/rails db:migrate db:test:prepare"
+alias jmeter="/usr/local/bin/jmeter"
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
