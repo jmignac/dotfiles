@@ -151,6 +151,7 @@ main () {
     step "Configuring spin git"
     git config --global user.email "jesse.mignac@shopify.com"
     git config --global user.name "Jesse Mignac"
+    git config --global --unset-all credential.helper
   fi
 
   install_vim_dependencies
