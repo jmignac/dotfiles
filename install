@@ -106,7 +106,7 @@ install_vim_dependencies() {
   if ! ls -A "$HOME/.vim/plugged" &> /dev/null; then
     step "Installing vim dependencies"
     vim -c 'PlugInstall | qa!'
-    vim -c 'CocInstall -sync coc-json coc-tsserver coc-solargraph coc-snippets | qa!'
+    vim -c 'CocInstall -sync coc-json coc-tsserver coc-snippets | qa!'
   fi
 }
 
