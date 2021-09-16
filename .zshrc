@@ -46,3 +46,5 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # Load os specific config
 [ "$OS" = "Linux" ] && source ~/dotfiles/os-linux.sh
 [ "$OS" = "Darwin" ] && source ~/.dotfiles/os-darwin.sh
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
