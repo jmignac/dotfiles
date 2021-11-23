@@ -3,6 +3,7 @@ git
 htop
 hub
 jq
+lsof
 ripgrep
 tig
 tree
