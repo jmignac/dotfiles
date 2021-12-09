@@ -136,7 +136,7 @@ main () {
       mv $HOME/.config/* "$current_dir/config"
       rmdir $HOME/.config
       rm $HOME/.zshrc
-      rm $HOME/.gitconfig
+      # rm $HOME/.gitconfig
     fi
   fi
 
