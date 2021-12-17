@@ -153,6 +153,7 @@ main () {
     git config --global --unset-all credential.helper
   fi
 
+  install_vim_plug
   install_vim_dependencies
 }
 
