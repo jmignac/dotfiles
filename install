@@ -133,8 +133,8 @@ main () {
     if [[ $SPIN ]]; then
       install_apt_packages
       mv $HOME/.config/* "$current_dir/config"
-      rmdir $HOME/.config
-      rm $HOME/.zshrc
+      rm -rf $HOME/.config
+      rm -rf $HOME/.zshrc
       # rm $HOME/.gitconfig
     fi
   fi
