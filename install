@@ -105,7 +105,7 @@ install_vim_plug() {
 install_vim_dependencies() {
   if ! ls -A "$HOME/.vim/plugged" &> /dev/null; then
     step "Installing vim dependencies"
-    vim +PlugInstall +qall
+    vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
   fi
 }
 
