@@ -3,7 +3,7 @@ filetype off                  " required
 filetype plugin indent on    " required
 syntax on
 
-source $HOME/.vim/config/plugins.vim
+source $HOME/.config/nvim/config/plugins.vim
 
 set tabstop=2
 set shiftwidth=2

@@ -1,5 +1,5 @@
 " load plugins
-call plug#begin($HOME . '/config/vim/plugged')
+call plug#begin($HOME . '/.config/nvim/plugged')
   Plug 'rakr/vim-one'
   Plug 'vim-airline/vim-airline'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
