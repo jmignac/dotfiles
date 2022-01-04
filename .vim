@@ -1,1 +1,1 @@
-config/vim
+config/nvim

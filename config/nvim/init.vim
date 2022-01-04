@@ -36,6 +36,8 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
+map <leader>sv :source ~/.vimrc<cr>
+
 " fzf bindings to open the selected result
 let g:fzf_action = { 'ctrl-t': 'vsplit' }
 let g:fzf_layout = { 'down': '20%' }

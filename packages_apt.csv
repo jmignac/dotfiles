@@ -2,6 +2,7 @@ direnv
 git
 htop
 hub
+neovim
 jq
 lsof
 ripgrep

@@ -1,5 +1,7 @@
 export ZSH_DISABLE_COMPFIX=true
 export ZSH=$HOME/.oh-my-zsh
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # ZSH_THEME="robbyrussell"
 
@@ -36,6 +38,10 @@ alias grim="git rebase -i master"
 alias grm="git rebase master"
 alias rdb="bin/rails db:migrate db:test:prepare"
 alias jmeter="/usr/local/bin/jmeter"
+alias vimrc="v ~/.vimrc"
+alias v="nvim"
+alias vi="vim"
+alias vim="nvim"
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
