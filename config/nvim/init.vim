@@ -53,6 +53,10 @@ noremap <leader>glo :Gclog<cr>
 noremap <leader>gcm :Gcommit<cr>
 noremap <leader>t :terminal<cr>
 
+" Vim sessions
+noremap <leader>ss :mksession! ~/current_session.vim<cr>
+noremap <leader>sl :source ~/current_session.vim<cr>
+
 " Set vimwiki to use markdown as default
 let g:vimwiki_list = [{'path': '~/vimwiki/',
   \ 'syntax': 'markdown', 'ext': '.md'}]
